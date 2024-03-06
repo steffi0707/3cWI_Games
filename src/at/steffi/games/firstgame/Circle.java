@@ -3,6 +3,7 @@ package at.steffi.games.firstgame;
 import org.newdawn.slick.*;
 
 public class Circle extends BasicGame {
+    private boolean isGoingDown;
     private float x;
     private float y;
     private float speed;
@@ -15,13 +16,25 @@ public class Circle extends BasicGame {
     public void init(GameContainer gameContainer) throws SlickException {
         this.x = 0;
         this.y = 0;
+        this.isGoingDown = true;
         this.speed = 10.0f;
     }
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
 
-        this.y += (float)delta/speed;
+        if(isGoingDown){
+            this.y += (float)delta/speed;
+        }
+        else{
+            this.y -= (float)delta/speed;
+        }
+        if(this.y >= 550){
+            isGoingDown = false;
+        }
+        if (this.y <= 0){
+            isGoingDown = true;
+        }
     }
 
     @Override

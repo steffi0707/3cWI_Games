@@ -4,6 +4,8 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.tests.AnimationTest;
 
 public class Rectangles extends BasicGame {
+    private boolean isFacingRight;
+    private boolean isFacingDown;
     private float x;
     private float y;
     private float speed;
