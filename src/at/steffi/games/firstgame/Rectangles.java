@@ -62,36 +62,26 @@ public class Rectangles extends BasicGame {
         if(this.ovalx >= 750){
             isGoingRight = false;
         }
-        if (this.ovalx <= 0){
+        if (this.ovalx <= 0) {
             isGoingRight = true;
-            if(isFacingRight){
-                this.rectx += (float)delta/speed;
-
-            }
-            else if (isFacingDown = true) {
-                this.recty += (float)delta/speed;
-            }
-            else{
-                this.rectx -= (float) delta/speed;
-            }
-        } else {
-            if(isFacingRight){
-                this.rectx += (float)delta/speed;
-
-            }
-            else if (isFacingDown = true) {
-                this.recty += (float)delta/speed;
-            }
-            else{
-                this.rectx -= (float) delta/speed;
-            }
         }
 
         //Rectangle
+        if(isFacingRight){
+            this.rectx += (float)delta/speed;
+        }
+        else if (isFacingDown) {
+            this.recty += (float)delta/speed;
+        }
+        else{
+            this.rectx -= (float) delta/speed;
+        }
+
+
         if(this.rectx >= 650){
             isFacingRight = false;
         }
-        if (this.recty >= 350){
+        if (this.recty >= 450){
             isFacingDown = false;
         }
         if (this.rectx <= 100){
