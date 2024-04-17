@@ -112,3 +112,5 @@ public class Rectangles extends BasicGame {
         }
     }
 }
+
+//ich arbeite nicht mehr weiter an dieser aufgabe da es zu lange braucht
