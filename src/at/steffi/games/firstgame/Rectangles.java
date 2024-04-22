@@ -2,104 +2,141 @@ package at.steffi.games.firstgame;
 
 import org.newdawn.slick.*;
 
+
 public class Rectangles extends BasicGame {
-    private boolean isFacingRight;
-    private boolean isFacingDown;
-    private float rectx;
-    private float recty;
-    private boolean isGoingDown;
-    private float arcx;
-    private float arcy;
-    private boolean isGoingRight;
-    private float ovalx;
-    private float ovaly;
-    private float speed;
+
+    public enum Direction {RIGHT, DOWN, LEFT, UP}
+    public enum Direction1 {RIGHT, DOWN, LEFT, UP}
+    public enum Direction2 {RIGHT, DOWN, LEFT, UP}
+    private float recx;
+    private float recy;
+    private float ovx;
+    private float ovy;
+    private float circx;
+    private float circy;
+    private float Speed;
+    private Direction actualDirectionRec = Direction.RIGHT;
+    private Direction1 actualDirectionOv = Direction1.RIGHT;
+    private Direction2 actualDirectionCirc = Direction2.DOWN;
+
+
 
 
     public Rectangles(String title) {
         super(title);
     }
 
-
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        this.rectx = 100;
-        this.recty = 100;
-        this.isFacingDown = true;
-        this.isFacingRight = true;
-        this.arcx = 0;
-        this.arcy = 0;
-        this.isGoingDown = true;
-        this.ovalx = 0;
-        this.ovaly = 0;
-        this.isGoingRight = true;
-        this.speed = 10.0f;
+        this.recx = 100;
+        this.recy = 100;
+        this.ovy = 0;
+        this.ovx = 100;
+        this.circx = 0;
+        this.Speed = 10.0f;
     }
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
-        //Circle
-        if(isGoingDown){
-            this.arcy += (float)delta/speed;
+
+        double windowBoarderHorizontalRight = gameContainer.getWidth() * 0.8;
+        double windowBoarderHorizontalLeft = gameContainer.getWidth() * 0.1;
+        double windowBoarderVerticalDown = gameContainer.getHeight() * 0.8;
+        double windowBoarderVerticalUp = gameContainer.getHeight() * 0.1;
+
+
+        if (actualDirectionRec==Direction.RIGHT){
+            this.recx = moveRight(this.recx, delta);
+            if (this.recx > windowBoarderHorizontalRight){
+                this.actualDirectionRec = Direction.DOWN;
+
+            }
         }
-        else{
-            this.arcy -= (float)delta/speed;
+        if (actualDirectionRec==Direction.DOWN){
+            this.recy = moveDown(this.recy, delta);
+            if (this.recy> windowBoarderVerticalDown){
+                this.actualDirectionRec = Direction.LEFT;
+            }
         }
-        if(this.arcy >= 550){
-            isGoingDown = false;
-        }
-        if (this.arcy <= 0){
-            isGoingDown = true;
+        if (actualDirectionRec==Direction.LEFT){
+            this.recx = moveLeft(this.recx, delta);
+            if (this.recx < windowBoarderHorizontalLeft ){
+                this.actualDirectionRec = Direction.UP;
+            }
         }
 
-        //Oval
-        if(isGoingRight){
-            this.ovalx += (float)delta/speed;
-        }
-        else{
-            this.ovalx -= (float)delta/speed;
-        }
-        if(this.ovalx >= 750){
-            isGoingRight = false;
-        }
-        if (this.ovalx <= 0) {
-            isGoingRight = true;
-        }
-
-        //Rectangle
-        if(isFacingRight){
-            this.rectx += (float)delta/speed;
-        }
-        else if (isFacingDown) {
-            this.recty += (float)delta/speed;
-        }
-        else{
-            this.rectx -= (float) delta/speed;
+        if (actualDirectionRec==Direction.UP){
+            this.recy = moveUp(this.recy, delta);
+            if (recy < windowBoarderVerticalUp){
+                this.actualDirectionRec = Direction.RIGHT;
+            }
         }
 
 
-        if(this.rectx >= 650){
-            isFacingRight = false;
-        }
-        if (this.recty >= 450){
-            isFacingDown = false;
-        }
-        if (this.rectx <= 100){
-            isFacingRight = true;
-        }
-        if (this.recty <= 100){
-            isFacingDown = true;
+
+        if (actualDirectionOv==Direction1.RIGHT){
+            this.ovx = moveRight(this.ovx, delta);
+            if (this.ovx>windowBoarderHorizontalRight){
+                this.actualDirectionOv = Direction1.LEFT;
+            }
+
+
         }
 
+        if (actualDirectionOv==Direction1.LEFT){
+            this.ovx = moveLeft(this.ovx, delta);
+            if (this.ovx<=windowBoarderHorizontalLeft){
+                this.actualDirectionOv = Direction1.RIGHT;
+            }
+        }
+
+
+        if(actualDirectionCirc==Direction2.DOWN){
+            this.circy = moveDown(this.circy,delta);
+            if(this.circy >= windowBoarderVerticalDown){
+                this.actualDirectionCirc = Direction2.UP;
+            }
+        }
+
+        if(actualDirectionCirc==Direction2.UP){
+            this.circy = moveUp(this.circy,delta);
+            if(this.circy <= windowBoarderVerticalUp){
+                this.actualDirectionCirc = Direction2.DOWN;
+            }
+        }
+
+
+
+        /*if (this.ovx < 800 ){
+            actualDirection = true;
+        }
+
+        else if (this.ovx > 800){
+            actualDirection = false;
+        }
+
+
+        if (actualDirection) {
+            this.ovx = moveRight(this.ovx, delta);
+            System.out.println("x" + this.ovx);
+            System.out.println("Going Right");
+        }
+
+        else if (!actualDirection) {
+            this.ovx = moveLeft(this.ovx, delta);
+            System.out.println("x" + this.ovx);
+            System.out.println("Going Left");
+        }*/
 
     }
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        graphics.drawRect(this.rectx, this.recty, 50, 50);
-        graphics.drawArc(this.arcx, this.arcy, 50, 50, 100, 500);
-        graphics.drawOval(this.ovalx, this.ovaly, 50, 25, 75);
-        graphics.drawString("Hello you!", 50, 50);
+        graphics.drawRect(this.recx,this.recy,50,50);
+        graphics.drawOval(this.ovx, this.ovy, 50, 25);
+        graphics.drawOval(this.circx, this.circy, 50,50);
+        graphics.drawString("Hello World!", 50, 50);
+
     }
 
     public static void main(String[] argv) {
@@ -111,6 +148,49 @@ public class Rectangles extends BasicGame {
             e.printStackTrace();
         }
     }
-}
 
-//ich arbeite nicht mehr weiter an dieser aufgabe da es zu lange braucht
+
+
+
+
+    public float moveRight(float xChord, int delta){
+        return xChord + (float)delta/this.Speed;
+    }
+
+    public float moveLeft(float xChord, int delta){
+        return xChord -= (float)delta/this.Speed;
+    }
+
+    public float moveUp(float yChord, int delta) {
+        return yChord -= (float) delta / this.Speed;
+    }
+
+    public float moveDown(float yChord, int delta){
+        return yChord += (float)delta/this.Speed;
+    }
+
+
+
+    /*
+        if (this.ovx >= 700){
+            this.isFacingRight = false;
+        }
+
+        if(this.ovx <= 100){
+            this.isFacingRight = true;
+        }
+
+        if (this.isFacingRight) {
+            System.out.println(this.ovx + " <= 700");
+            this.ovx = (this.ovx, delta);
+        }
+
+        if (!this.isFacingRight) {
+            System.out.println(this.ovx + " >= 100");
+            this.ovx = Move(this.ovx, -delta);
+
+        public float Move(float yChord, int delta){
+        return yChord + (float)delta/this.recSpeed;
+    }*/
+
+}
