@@ -2,8 +2,15 @@ package at.steffi.games.firstgame;
 
 import org.newdawn.slick.*;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
-public class Rectangles extends BasicGame {
+
+public class ObjectGame extends BasicGame {
+    private List<Rectangle> rectangles;
+    private List<Circle> circles;
 
     public enum Direction {RIGHT, DOWN, LEFT, UP}
     public enum Direction1 {RIGHT, DOWN, LEFT, UP}
@@ -22,12 +29,25 @@ public class Rectangles extends BasicGame {
 
 
 
-    public Rectangles(String title) {
+    public ObjectGame(String title) {
         super(title);
     }
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
+        this.rectangles = new ArrayList<>();
+        this.circles = new LinkedList<>();
+
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            Rectangle rectangle = new Rectangle(random.nextInt(600), random.nextInt(600), random.nextInt(50));
+            rectangles.add(rectangle);
+        }
+        for (int i = 0; i < 50; i ++) {
+            Circle circle = new Circle();
+            this.circles.add(circle);
+        }
+
         this.recx = 100;
         this.recy = 100;
         this.ovy = 0;
@@ -39,11 +59,18 @@ public class Rectangles extends BasicGame {
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
 
+       for (Rectangle rectangle:this.rectangles){
+           rectangle.update(delta);
+       }
+
+       for (Circle circle: this.circles){
+           circle.update(delta);
+       }
+
         double windowBoarderHorizontalRight = gameContainer.getWidth() * 0.8;
         double windowBoarderHorizontalLeft = gameContainer.getWidth() * 0.1;
         double windowBoarderVerticalDown = gameContainer.getHeight() * 0.8;
         double windowBoarderVerticalUp = gameContainer.getHeight() * 0.1;
-
 
         if (actualDirectionRec==Direction.RIGHT){
             this.recx = moveRight(this.recx, delta);
@@ -71,6 +98,7 @@ public class Rectangles extends BasicGame {
                 this.actualDirectionRec = Direction.RIGHT;
             }
         }
+
 
 
 
@@ -132,6 +160,14 @@ public class Rectangles extends BasicGame {
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
+        for (Rectangle rectangle:this.rectangles){
+            rectangle.render(graphics);
+        }
+
+        for (Circle circle: this.circles){
+            circle.render(graphics);
+        }
+
         graphics.drawRect(this.recx,this.recy,50,50);
         graphics.drawOval(this.ovx, this.ovy, 50, 25);
         graphics.drawOval(this.circx, this.circy, 50,50);
@@ -141,7 +177,7 @@ public class Rectangles extends BasicGame {
 
     public static void main(String[] argv) {
         try {
-            AppGameContainer container = new AppGameContainer(new Rectangles("Rectangles"));
+            AppGameContainer container = new AppGameContainer(new ObjectGame("Rectangles"));
             container.setDisplayMode(800,600,false);
             container.start();
         } catch (SlickException e) {
