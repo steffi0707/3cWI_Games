@@ -9,8 +9,8 @@ import java.util.Random;
 
 
 public class ObjectGame extends BasicGame {
-    private List<Rectangle> rectangles;
-    private List<Circle> circles;
+    private List<Actor> actors;
+
 
     public enum Direction {RIGHT, DOWN, LEFT, UP}
     public enum Direction1 {RIGHT, DOWN, LEFT, UP}
@@ -35,17 +35,21 @@ public class ObjectGame extends BasicGame {
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        this.rectangles = new ArrayList<>();
-        this.circles = new LinkedList<>();
+        this.actors = new ArrayList<>();
+
 
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
             Rectangle rectangle = new Rectangle(random.nextInt(600), random.nextInt(600), random.nextInt(50));
-            rectangles.add(rectangle);
+            this.actors.add(rectangle);
         }
         for (int i = 0; i < 50; i ++) {
             Circle circle = new Circle();
-            this.circles.add(circle);
+            this.actors.add(circle);
+        }
+        for (int i = 0; i < 5; i ++) {
+            Ellipse ellipse = new Ellipse(random.nextInt(800), random.nextInt(600));
+            this.actors.add(ellipse);
         }
 
         this.recx = 100;
@@ -59,13 +63,10 @@ public class ObjectGame extends BasicGame {
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
 
-       for (Rectangle rectangle:this.rectangles){
-           rectangle.update(delta);
+       for (Actor actor:this.actors){
+           actor.update(delta);
        }
 
-       for (Circle circle: this.circles){
-           circle.update(delta);
-       }
 
         double windowBoarderHorizontalRight = gameContainer.getWidth() * 0.8;
         double windowBoarderHorizontalLeft = gameContainer.getWidth() * 0.1;
@@ -160,13 +161,10 @@ public class ObjectGame extends BasicGame {
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        for (Rectangle rectangle:this.rectangles){
-            rectangle.render(graphics);
+        for (Actor actor:this.actors){
+            actor.render(graphics);
         }
 
-        for (Circle circle: this.circles){
-            circle.render(graphics);
-        }
 
         graphics.drawRect(this.recx,this.recy,50,50);
         graphics.drawOval(this.ovx, this.ovy, 50, 25);

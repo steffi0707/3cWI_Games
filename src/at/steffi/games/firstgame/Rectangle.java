@@ -2,7 +2,7 @@ package at.steffi.games.firstgame;
 
 import org.newdawn.slick.Graphics;
 
-public class Rectangle {
+public class Rectangle implements Actor{
 
 
     private enum DIRECTION {RIGHT, DOWN, LEFT, UP};
