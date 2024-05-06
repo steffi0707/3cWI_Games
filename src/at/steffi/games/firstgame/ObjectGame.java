@@ -40,7 +40,7 @@ public class ObjectGame extends BasicGame {
 
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
-            Rectangle rectangle = new Rectangle(random.nextInt(600), random.nextInt(600), random.nextInt(50));
+            Rectangle rectangle = new Rectangle();
             this.actors.add(rectangle);
         }
         for (int i = 0; i < 50; i ++) {
@@ -48,7 +48,7 @@ public class ObjectGame extends BasicGame {
             this.actors.add(circle);
         }
         for (int i = 0; i < 5; i ++) {
-            Ellipse ellipse = new Ellipse(random.nextInt(800), random.nextInt(600));
+            Ellipse ellipse = new Ellipse();
             this.actors.add(ellipse);
         }
 

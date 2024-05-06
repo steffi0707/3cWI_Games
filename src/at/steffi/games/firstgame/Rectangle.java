@@ -1,29 +1,48 @@
+
 package at.steffi.games.firstgame;
 
 import org.newdawn.slick.Graphics;
 
-public class Rectangle implements Actor{
+import java.util.Random;
 
-
-    private enum DIRECTION {RIGHT, DOWN, LEFT, UP};
+public class Rectangle implements Actor {
     private float x;
     private float y;
     private float speed;
 
-    public Rectangle(int x, int y, float speed) {
-        this.x = x;
-        this.y = y;
-        this.speed = speed;
+
+    public enum Direction {RIGHT, LEFT}
+    private Direction direction;
+
+
+    public Rectangle() {
+        Random random = new Random();
+        this.x = random.nextInt(800);
+        this.y = random.nextInt(800);
+        this.speed = 8;
+        this.direction = direction;
+
     }
 
     public void render(Graphics graphics) {
         graphics.drawRect(this.x, this.y, 10, 10);
     }
 
-    public void update(int delta){
-        this.x += (float)delta/this.speed;
-        if(this.x>800) {
-            this.x = 0;
+    public void update(int delta) {
+        if (this.direction == Direction.RIGHT) {
+            this.x += (float) delta / this.speed;
+            if (this.x > 1000) {
+                this.x = 0;
+            }
         }
+
+        if (this.direction == Direction.LEFT) {
+            this.x -= (float) delta / this.speed;
+            if (this.x < 0) {
+                this.x = 1000;
+            }
+
+        }
+
     }
 }
