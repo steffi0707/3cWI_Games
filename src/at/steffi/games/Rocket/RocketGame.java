@@ -24,7 +24,9 @@ public class RocketGame extends BasicGame{
 
         @Override
         public void update(GameContainer gameContainer, int delta) throws SlickException {
-
+            for (ActorRocket actor: this.actors) {
+                actor.update(gameContainer, delta);
+            }
         }
 
 
@@ -39,7 +41,13 @@ public class RocketGame extends BasicGame{
             }
         }
 
-        public static void main(String[] argv) {
+        @Override
+        public void keyPressed(int key, char c) {
+            System.out.println(key);
+
+        }
+
+    public static void main(String[] argv) {
             try {
                 AppGameContainer container = new AppGameContainer(new at.steffi.games.Rocket.RocketGame("RocketGame"));
                 container.setDisplayMode(800,600,false);

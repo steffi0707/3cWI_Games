@@ -1,8 +1,6 @@
 package at.steffi.games.Rocket;
 
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 
 public class Rocket implements ActorRocket {
     private Image rocketImage;
@@ -22,8 +20,15 @@ public class Rocket implements ActorRocket {
     }
 
     @Override
-    public void update(int delta) {
-        this.x++;
+    public void update(GameContainer gameContainer, int delta) {
+        if (gameContainer.getInput().isKeyDown(Input.KEY_RIGHT)){
+            this.x++;
+        }
+
+        if (gameContainer.getInput().isKeyDown(Input.KEY_LEFT)){
+            this.x--;
+        }
+
     }
 
 
