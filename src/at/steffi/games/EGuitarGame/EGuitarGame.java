@@ -42,7 +42,7 @@ public class EGuitarGame extends BasicGame {
 
     public static void main(String[] argv) {
         try {
-            AppGameContainer container = new AppGameContainer(new at.steffi.games.Rocket.RocketGame("EGuitarGame"));
+            AppGameContainer container = new AppGameContainer(new at.steffi.games.EGuitarGame.EGuitarGame("EGuitarGame"));
             container.setDisplayMode(800,600,false);
             container.start();
         } catch (SlickException e) {

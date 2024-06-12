@@ -4,12 +4,12 @@ import org.newdawn.slick.*;
 
 public class Steve implements EGuitarActor{
 
-    private Image steveImage;
+    private final Image steveImage;
     private float x,y;
 
     public Steve() throws SlickException {
-        Image tmp = new Image("EGuitarGame/Steve.png");
-        this.steveImage = tmp.getScaledCopy(50,60);
+        Image tmp = new Image("testdata/guitar/Steve.png");
+        this.steveImage = tmp.getScaledCopy(510,500);
         this.x = 100;
         this.y = 100;
     }
