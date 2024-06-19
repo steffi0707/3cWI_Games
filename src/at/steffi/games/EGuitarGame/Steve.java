@@ -30,6 +30,21 @@ public class Steve implements EGuitarActor{
         if (gameContainer.getInput().isKeyDown(Input.KEY_LEFT)){
             this.x--;
         }
+        checkCollision(gameContainer);
+    }
 
+    private void checkCollision(GameContainer gameContainer) {
+        int windowWidth = gameContainer.getWidth();
+        float steveWidth = steveImage.getWidth();
+
+        // Begrenzen der Position auf den linken Rand
+        if (this.x < 0) {
+            this.x = 0;
+        }
+
+        // Begrenzen der Position auf den rechten Rand
+        if (this.x + steveWidth > windowWidth) {
+            this.x = windowWidth - steveWidth;
+        }
     }
 }
