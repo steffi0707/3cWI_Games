@@ -9,7 +9,7 @@ public class Steve implements EGuitarActor{
 
     public Steve() throws SlickException {
         Image tmp = new Image("testdata/guitar/Steve.png");
-        this.steveImage = tmp.getScaledCopy(510,510);
+        this.steveImage = tmp.getScaledCopy(600,510);
         this.x = 100;
         this.y = 100;
     }
