@@ -6,8 +6,10 @@ public class Steve implements EGuitarActor{
 
     private final Image steveImage;
     private float x,y;
+    private int speed;
 
     public Steve() throws SlickException {
+        this.speed = 8;
         Image tmp = new Image("testdata/guitar/Steve.png");
         this.steveImage = tmp.getScaledCopy(600,510);
         this.x = 100;
